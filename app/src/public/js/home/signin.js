@@ -22,6 +22,7 @@ function signin() {
     .then((res) => {
         if (res.success) {
             location.href = "/main"
+            console.log(res.uID);
         } else {
             alert(res.errorMessage);
         }
