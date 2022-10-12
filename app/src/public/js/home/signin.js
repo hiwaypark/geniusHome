@@ -12,7 +12,7 @@ function signin() {
         userID: userID.value,
         userPassword: userPassword.value,
     };
-
+    
     fetch("/signin", {
         method:"POST",
         headers: {"Content-Type": "application/json"},
@@ -22,7 +22,6 @@ function signin() {
     .then((res) => {
         if (res.success) {
             location.href = "/main"
-            console.log(res.uID);
         } else {
             alert(res.errorMessage);
         }
