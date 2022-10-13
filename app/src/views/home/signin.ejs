@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--
-    <script src="/js/home/signin.js" defer></script>
-    -->
+    
     <title>GENIUS Sign In</title>
 
     <link rel="icon" href="/img/fav.png" type="image/x-icon">
@@ -52,16 +49,17 @@
          <!-- end nav -->
     </div>
 
-    <div class="container">
+    <form action="/signin" method="post">
+        
         <br><br><br>
-        <form name=""form1" action="loginChk" method="post">
-            <li>ID : <input type="text" id="userID" placeholder="ID"/></li><br>
-            <li>PASSWORD : <input type="text" id="userPassword" placeholder="PASSWORD"/></li><br>
-            <input type="submit" value="SIGN IN"/>
-        </form>
-    </div>
+        <li>ID : <input type="text" name="userID" placeholder="ID"/></li><br>
+        <li>PASSWORD : <input type="text" name="userPassword" placeholder="PASSWORD"/></li><br>
+        <input type="submit" value="SIGN IN"/>
+        
+    </form>
     
-
+    
+    
     <!-- jQuery -->
     <script src="/js/jquery-2.1.1.js"></script>
     <!--  plugins -->
@@ -70,8 +68,8 @@
     <script src="/js/animated-headline.js"></script>
     <script src="/js/isotope.pkgd.min.js"></script>
 
-
     <!--  custom script -->
     <script src="/js/custom.js"></script>
+
 </body>
 </html>

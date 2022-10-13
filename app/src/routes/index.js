@@ -5,7 +5,8 @@ const router = express.Router();
 
 //firebase
 const { signInWithEmailAndPassword } = require("firebase/auth");
-const { firebaseApp, auth } = require("../controller/firebase/firebaseapp");
+const { DataSnapshot, get, child } = require("firebase/database");
+const { firebaseApp, auth, db, dbRef } = require("../controller/firebase/firebaseapp");
 
 //firebase
 
@@ -18,14 +19,10 @@ router.get("/signin", (req, res) => {
 })
 
 
-router.post("/loginChk", (req, res) => {
-
-    console.log(req.body);
+router.post("/signin", (req, res) => {
     
-    const userID = req.body.userPassword;
+    const userID = req.body.userID;
     const userPassword = req.body.userPassword;
-
-    console.log(userID, userPassword);
 
     signInWithEmailAndPassword(auth, userID, userPassword)
     .then((userCredential) => {
@@ -34,44 +31,115 @@ router.post("/loginChk", (req, res) => {
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
-
-        res.redirect("/signin");
+        console.log(userID, ": " , errorMessage);
+        res.write("<script>alert(`SIGN IN ERROR`)</script>");
+        res.write("<script>window.location=\"/signin\"</script>");
     });
 });
 
-router.post("/signin", (req, res) => {
-
-    const userID = req.body.userID;
-    const userPassword = req.body.userPassword;
-
+router.get("/main", (req, res) => {
     
+    if(!auth.currentUser) {
+        res.redirect("/signin");
+        return;
+    }
 
-    signInWithEmailAndPassword(auth, userID, userPassword)
-    .then((userCredential) => {
-        
-        const user = userCredential.user;
-        res.status(200).json({
-            success: true,
-            uID: user.uid,
-        });
+    get(child(dbRef, "minzDB/boardMainDB/김포양주 건설사업단"))
+    .then((snapshot) => {
+        if (snapshot.exists()) {
+            var rows =[];
+            snapshot.forEach((doc) => {
+                var childData = doc.val();
+                rows.push(childData);
+            })
+            console.log(rows);
+        } else {
+            console.log("No DATA");
+        }
+
+        res.render("home/main");
     })
     .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-
-        return res.json({
-            success: false,
-            msg: "로그인 실패"
-        })
+        console.log(error);
     });
+});
 
-})
+router.get("/boardMain", (req, res) => {
+    if(!auth.currentUser) {
+        res.redirect("/signin");
+        return;
+    }
 
-router.get("/main", (req, res, next) => {
-    res.render("home/main");
-    
+    get(child(dbRef, "minzDB/boardMainDB/김포양주 건설사업단"))
+    .then((snapshot) => {
+        if (snapshot.exists()) {
+            var rows =[];
+            snapshot.forEach((doc) => {
+                var childData = doc.val();
+                rows.push(childData);
+            })
+
+        } else {
+            console.log("No DATA");
+        }
+
+        res.render("home/boardmain");
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+});
+
+router.get("/boardSector", (req, res) => {
+    if(!auth.currentUser) {
+        res.redirect("/signin");
+        return;
+    }
+
+    get(child(dbRef, "minzDB/boardSectorDB/김포양주 건설사업단"))
+    .then((snapshot) => {
+        if (snapshot.exists()) {
+            var rows =[];
+            snapshot.forEach((doc) => {
+                var childData = doc.val();
+                rows.push(childData);
+            })
+
+        } else {
+            console.log("No DATA");
+        }
+
+        res.render("home/boardsector");
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+});
+
+router.get("/safeCheck", (req, res) => {
+    if(!auth.currentUser) {
+        res.redirect("/signin");
+        return;
+    }
+
+    get(child(dbRef, "minzDB/safeCheckDB/김포양주 건설사업단"))
+    .then((snapshot) => {
+        if (snapshot.exists()) {
+            var rows =[];
+            snapshot.forEach((doc) => {
+                var childData = doc.val();
+                rows.push(childData);
+            })
+
+        } else {
+            console.log("No DATA");
+        }
+
+        res.render("home/safecheck");
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 });
   
 module.exports = router;

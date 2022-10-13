@@ -1,11 +1,8 @@
 "use strict"
 
-const express = require("express");
-const router = express.Router();
-
-//firebase
 const { initializeApp } = require("firebase/app");
 const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
+const { getDatabase, ref } = require("firebase/database");
 
 const firebaseConfig = {
     // apiKey: "AIzaSyBUFULXj2VzwRRVlJzCeecNeQlNZoEAr3M",
@@ -28,7 +25,13 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 
+const db = getDatabase(firebaseApp);
+
+const dbRef = ref(db);
+
 module.exports = {
     firebaseApp,
     auth,
+    db,
+    dbRef,
 }

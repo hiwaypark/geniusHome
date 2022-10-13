@@ -7,8 +7,8 @@ const bodyParser = require("body-parser");
 app.set("views", "./app/src/views");
 app.set("view engine", "ejs");
 app.use(express.static(`${__dirname}/src/public`));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 
 //라우터 설정
 const router = require("./src/routes");
