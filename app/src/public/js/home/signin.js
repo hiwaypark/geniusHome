@@ -23,7 +23,7 @@ function signin() {
         if (res.success) {
             location.href = "/main"
         } else {
-            alert(res.errorMessage);
+            alert(res.msg);
         }
     })
     .catch((err) => {

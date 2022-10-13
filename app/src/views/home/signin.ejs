@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
     <script src="/js/home/signin.js" defer></script>
-
+    -->
     <title>GENIUS Sign In</title>
 
     <link rel="icon" href="/img/fav.png" type="image/x-icon">
@@ -53,9 +54,11 @@
 
     <div class="container">
         <br><br><br>
-        <li>ID : <input type="text" id="userID" placeholder="ID"/></li><br>
-        <li>PASSWORD : <input type="text" id="userPassword" placeholder="PASSWORD"/></li><br>
-        <input type="button" id="LOGINBTN" value="SIGN IN"/>
+        <form name=""form1" action="loginChk" method="post">
+            <li>ID : <input type="text" id="userID" placeholder="ID"/></li><br>
+            <li>PASSWORD : <input type="text" id="userPassword" placeholder="PASSWORD"/></li><br>
+            <input type="submit" value="SIGN IN"/>
+        </form>
     </div>
     
 

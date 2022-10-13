@@ -17,10 +17,35 @@ router.get("/signin", (req, res) => {
     res.render("home/signin")
 })
 
+
+router.post("/loginChk", (req, res) => {
+
+    console.log(req.body);
+    
+    const userID = req.body.userPassword;
+    const userPassword = req.body.userPassword;
+
+    console.log(userID, userPassword);
+
+    signInWithEmailAndPassword(auth, userID, userPassword)
+    .then((userCredential) => {
+        res.redirect("/main");        
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+
+        res.redirect("/signin");
+    });
+});
+
 router.post("/signin", (req, res) => {
 
     const userID = req.body.userID;
     const userPassword = req.body.userPassword;
+
+    
 
     signInWithEmailAndPassword(auth, userID, userPassword)
     .then((userCredential) => {
@@ -32,9 +57,14 @@ router.post("/signin", (req, res) => {
         });
     })
     .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+
+        return res.json({
+            success: false,
+            msg: "로그인 실패"
+        })
     });
 
 })
