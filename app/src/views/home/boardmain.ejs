@@ -7,6 +7,23 @@
     <title>GENIUS 사업단 게시판</title>
 </head>
 <body>
-    <h1>사업단 게시판판</h1>
+    <h1>사업단 게시판</h1>
+
+    <table border = "1">
+        <thead>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일시</th>
+        </thead>
+        <% for (let i = 0; i<boardData.length ; i++ ) { %>
+            <tbody>
+                <td><%=boardData[i].boardTitle%></td>
+                <td><%=boardData[i].userName%></td>
+                <td><%=boardData[i].boardDate%></td>
+            </tbody>
+        <% } %>
+        
+    </table>
+    
 </body>
 </html>

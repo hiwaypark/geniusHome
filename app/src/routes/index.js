@@ -18,7 +18,6 @@ router.get("/signin", (req, res) => {
     res.render("home/signin")
 })
 
-
 router.post("/signin", (req, res) => {
     
     const userID = req.body.userID;
@@ -44,24 +43,8 @@ router.get("/main", (req, res) => {
         return;
     }
 
-    get(child(dbRef, "minzDB/boardMainDB/김포양주 건설사업단"))
-    .then((snapshot) => {
-        if (snapshot.exists()) {
-            var rows =[];
-            snapshot.forEach((doc) => {
-                var childData = doc.val();
-                rows.push(childData);
-            })
-            console.log(rows);
-        } else {
-            console.log("No DATA");
-        }
-
-        res.render("home/main");
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+    res.render("home/main");
+    
 });
 
 router.get("/boardMain", (req, res) => {
@@ -70,24 +53,46 @@ router.get("/boardMain", (req, res) => {
         return;
     }
 
-    get(child(dbRef, "minzDB/boardMainDB/김포양주 건설사업단"))
+    const uID = auth.currentUser.uid;
+
+    get(child(dbRef, "minzDB/userDB/"+uID))
     .then((snapshot) => {
         if (snapshot.exists()) {
-            var rows =[];
+            var userData =[];
             snapshot.forEach((doc) => {
                 var childData = doc.val();
-                rows.push(childData);
+                userData.push(childData);
             })
 
         } else {
             console.log("No DATA");
         }
 
-        res.render("home/boardmain");
+        get(child(dbRef, "minzDB/boardMainDB/김포양주 건설사업단"))
+        .then((snapshot1) => {
+            if (snapshot1.exists()) {
+                var boardData =[];
+                snapshot1.forEach((doc) => {
+                    var childData = doc.val();
+                    boardData.push(childData);
+                })
+                //최신 데이터를 위로 올려주기
+                boardData.reverse();
+            } else {
+                console.log("No DATA");
+            }
+
+            res.render("home/boardmain", {userData: userData, boardData: boardData});
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
     })
     .catch((error) => {
         console.log(error);
     });
+    
 });
 
 router.get("/boardSector", (req, res) => {
@@ -96,20 +101,43 @@ router.get("/boardSector", (req, res) => {
         return;
     }
 
-    get(child(dbRef, "minzDB/boardSectorDB/김포양주 건설사업단"))
+    const uID = auth.currentUser.uid;
+
+    get(child(dbRef, "minzDB/userDB/"+uID))
     .then((snapshot) => {
         if (snapshot.exists()) {
-            var rows =[];
+            var userData =[];
             snapshot.forEach((doc) => {
                 var childData = doc.val();
-                rows.push(childData);
+                userData.push(childData);
             })
 
         } else {
             console.log("No DATA");
         }
 
-        res.render("home/boardsector");
+        const userSector = userData[4];
+
+        get(child(dbRef, "minzDB/boardSectorDB/김포양주 건설사업단/"+userSector))
+        .then((snapshot1) => {
+            if (snapshot1.exists()) {
+                var boardData =[];
+                snapshot1.forEach((doc) => {
+                    var childData = doc.val();
+                    boardData.push(childData);
+                })
+                //최신 데이터를 위로 올려주기
+                boardData.reverse();
+            } else {
+                console.log("No DATA");
+            }
+
+            res.render("home/boardsector", {userData: userData, boardData: boardData});
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
     })
     .catch((error) => {
         console.log(error);
@@ -122,20 +150,41 @@ router.get("/safeCheck", (req, res) => {
         return;
     }
 
-    get(child(dbRef, "minzDB/safeCheckDB/김포양주 건설사업단"))
+    const uID = auth.currentUser.uid;
+
+    get(child(dbRef, "minzDB/userDB/"+uID))
     .then((snapshot) => {
         if (snapshot.exists()) {
-            var rows =[];
+            var userData =[];
             snapshot.forEach((doc) => {
                 var childData = doc.val();
-                rows.push(childData);
+                userData.push(childData);
             })
 
         } else {
             console.log("No DATA");
         }
 
-        res.render("home/safecheck");
+        get(child(dbRef, "minzDB/safeCheckDB/김포양주 건설사업단"))
+        .then((snapshot1) => {
+            if (snapshot1.exists()) {
+                var safeData =[];
+                snapshot1.forEach((doc) => {
+                    var childData = doc.val();
+                    safeData.push(childData);
+                })
+                //최신 데이터를 위로 올려주기
+                safeData.reverse();
+            } else {
+                console.log("No DATA");
+            }
+
+            res.render("home/safecheck", {userData: userData, safeData: safeData});
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
     })
     .catch((error) => {
         console.log(error);
