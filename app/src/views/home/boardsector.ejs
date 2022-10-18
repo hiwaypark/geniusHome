@@ -4,25 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GENIUS 공구별 게시판</title>
+    <title>GENIUS 게시판</title>
+
+    <%- include(`../templete/head`) %>
+
 </head>
 <body>
-    <h1>공구 게시판</h1>
+    <%- include(`../templete/navbar`) %>
 
-    <table border = "1">
+    <h2>공구 게시판</h2>
+
+    <table class="table">
         <thead>
             <th>제목</th>
             <th>작성자</th>
             <th>작성일시</th>
         </thead>
-        <% for (let i = 0; i<boardData.length ; i++ ) { %>
+        <% if (boardData) {
+            for (let i = 0; i<boardData.length ; i++ ) { %>
+                <tbody>
+                    <td><%=boardData[i].boardTitle%></td>
+                    <td><%=boardData[i].userName%></td>
+                    <td><%=boardData[i].boardDate%></td>
+                </tbody>
+            <% }
+        } else {
+            %>
             <tbody>
-                <td><%=boardData[i].boardTitle%></td>
-                <td><%=boardData[i].userName%></td>
-                <td><%=boardData[i].boardDate%></td>
+                <td>게시물이 없습니다.</td>
             </tbody>
-        <% } %>
+        <% }%>
         
     </table>
+
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

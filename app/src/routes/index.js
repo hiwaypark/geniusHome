@@ -78,7 +78,7 @@ router.get("/boardMain", (req, res) => {
                 })
                 //최신 데이터를 위로 올려주기
                 boardData.reverse();
-                console.log(boardData);
+                
             } else {
                 console.log("No DATA");
             }
@@ -152,7 +152,6 @@ router.get("/boardDetail", (req, res) => {
     }
 
     const index = req.query.index;
-    console.log(index);
 
     const uID = auth.currentUser.uid;
     get(child(dbRef, "minzDB/userDB/"+uID))
@@ -168,22 +167,13 @@ router.get("/boardDetail", (req, res) => {
             console.log("No DATA");
         }
 
-        get(child(dbRef, "minzDB/boardMainDB/김포양주 건설사업단"))
-        .then((snapshot1) => {
-            if (snapshot1.exists()) {
-                var boardData =[];
-                snapshot1.forEach((doc) => {
-                    var childData = doc.val();
-                    boardData.push(childData);
-                })
-                //최신 데이터를 위로 올려주기
-                boardData.reverse();
-                console.log(boardData);
-            } else {
-                console.log("No DATA");
-            }
+        const boardDetail =[];
+        get(child(dbRef, "minzDB/boardMainDB/김포양주 건설사업단/" + index))
+        .then((snapshot2) => {
 
-            res.render("home/boardmain", {userData: userData, boardData: boardData});
+            const boardDetail = snapshot2.val();
+            
+            res.render("home/boarddetail", {userData: userData, boardDetail: boardDetail});
         })
         .catch((error) => {
             console.log(error);

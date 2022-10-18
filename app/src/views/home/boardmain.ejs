@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GENIUS 사업단 게시판</title>
-    <link rel="icon" href="/img/fav.png" type="image/x-icon">
-    <!-- Bootstrap -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
+    <title>GENIUS 게시판</title>
+
+    <%- include(`../templete/head`) %>
+
 </head>
 <body>
 
@@ -24,7 +23,7 @@
         </thead>
         <% for (let i = 0; i<boardData.length ; i++ ) { %>
             <tbody>
-                <td><a href="/boardDetial?index=<%=boardData[i].boardIndex%>"><%=boardData[i].boardTitle%></a></td>
+                <td><a href="/boardDetail?index=<%=boardData[i].boardIndex%>"><%=boardData[i].boardTitle%></a></td>
                 <td><%=boardData[i].userName%></td>
                 <td><%=boardData[i].boardDate%></td>
             </tbody>
