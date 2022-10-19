@@ -5,8 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENIUS 자율안전점검</title>
+
+    <%- include(`../templete/head`) %>
+
 </head>
 <body>
-    <h1>자율 현장점검</h1>
+    <%- include(`../templete/navbar`) %>
+
+    <h2>자율 현장점검</h2>
+
+    <% if (safeData) {
+        for (let i = 0; i<safeData.length ; i++) { %>
+            <div class="containner mt-3">
+                <div class="list-container">
+                    <div class="thumbnail"><img class="thumbnail" src="<%=safeData[i].photoIndex%>"/></div>
+                    <div class="flex-grow-1 p-4">
+                        <h5 class="title">점검내용 <a href="/safeDetail?index=<%safeData[i].checkIndex%>"><%=safeData[i].checkContent%></a></h5>
+                        <p class="user">점검자 <%=safeData[i].userName%></p>
+                        <p class="date">점검일시 <%=safeData[i].checkDate%></p>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        <% } 
+        } else {%>
+            <div class="containner mt-3">
+                <h5>점검 내용이 없습니다</h5>
+            </div>
+
+        <% } %>
+
+
 </body>
 </html>

@@ -207,7 +207,8 @@ router.get("/safeCheck", (req, res) => {
             console.log("No DATA");
         }
 
-        get(child(dbRef, "minzDB/safeCheckDB/김포양주 건설사업단"))
+        const userSector = "파주양주 2공구";
+        get(child(dbRef, "minzDB/safeCheckDB/김포양주 건설사업단/" + userSector))
         .then((snapshot1) => {
             if (snapshot1.exists()) {
                 var safeData =[];
@@ -231,6 +232,45 @@ router.get("/safeCheck", (req, res) => {
     .catch((error) => {
         console.log(error);
     });
+});
+
+router.get("/safeDetail", (req, res) => {
+    if(!auth.currentUser) {
+        res.redirect("/signin");
+        return;
+    }
+
+    const uID = auth.currentUser.uid;
+    const userSector = "파주양주 2공구";
+    const index = req.query.index;
+    console.log(index);
+
+    get(child(dbRef, "minzDB/userDB/"+uID))
+    .then((snapshot) => {
+        if (snapshot.exists()) {
+            var userData =[];
+            snapshot.forEach((doc) => {
+                var childData = doc.val();
+                userData.push(childData);
+            })
+
+        } else {
+            console.log("No DATA");
+        }
+
+        get(child(dbRef, "minzDB/safeCheckDB/김포양주 건설사업단/" + userSector +"/"+ index))
+        .then((snapshot3) => {
+            const safeDetailData = snapshot3.val();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+        res.render("home/safedetail", {userData: userData, safeDetailData: safeDetailData});
+    })
+    .catch((error) => {
+        console.log(error);
+    })
 });
   
 module.exports = router;

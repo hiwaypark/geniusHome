@@ -575,6 +575,14 @@ progress {
   height: auto;
 }
 
+.thumbnail {
+  max-width: 200px;
+  width: 100%;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+}
+
 .figure {
   display: inline-block;
 }
@@ -4368,6 +4376,11 @@ textarea.form-control-lg {
 .card-group > .card {
   margin-bottom: 0.75rem;
 }
+
+
+
+
+
 @media (min-width: 576px) {
   .card-group {
     display: flex;
@@ -10832,6 +10845,11 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+
+.list-container {
+  display: flex;
+  padding: 10px;
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
