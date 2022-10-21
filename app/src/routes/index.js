@@ -218,6 +218,7 @@ router.get("/safeCheck", (req, res) => {
                 })
                 //최신 데이터를 위로 올려주기
                 safeData.reverse();
+
             } else {
                 console.log("No DATA");
             }
@@ -240,37 +241,44 @@ router.get("/safeDetail", (req, res) => {
         return;
     }
 
-    const uID = auth.currentUser.uid;
-    const userSector = "파주양주 2공구";
     const index = req.query.index;
-    console.log(index);
-
+    const uID = auth.currentUser.uid;
     get(child(dbRef, "minzDB/userDB/"+uID))
     .then((snapshot) => {
         if (snapshot.exists()) {
-            var userData =[];
+            var userData = [];
             snapshot.forEach((doc) => {
                 var childData = doc.val();
                 userData.push(childData);
-            })
-
+            });
         } else {
-            console.log("No DATA");
+            console.log("User DATA가 없습니다")
         }
 
-        get(child(dbRef, "minzDB/safeCheckDB/김포양주 건설사업단/" + userSector +"/"+ index))
-        .then((snapshot3) => {
-            const safeDetailData = snapshot3.val();
+        //const userSector = userData[4];
+        const userSector = "파주양주 2공구";
+        get(child(dbRef, "minzDB/safeCheckDB/김포양주 건설사업단/" + userSector + "/" + index))
+        .then((snapshot7) => {
+            if(snapshot7.exists()) {
+                var safeDetail = [];
+                safeDetail.push(snapshot7.val());
+
+                console.log(safeDetail);
+            } else {
+                console.log("점검내용 없음");
+            }
+
+            res.render("home/safedetail", {userData: userData, safeDetail: safeDetail})
         })
         .catch((error) => {
-            console.log(error);
+            console.log("SafeData ERROR : " + error);
         });
 
-        res.render("home/safedetail", {userData: userData, safeDetailData: safeDetailData});
     })
     .catch((error) => {
-        console.log(error);
+        console.log("User DATA ERROR : " + error);
     })
+    
 });
   
 module.exports = router;
