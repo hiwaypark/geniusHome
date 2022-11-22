@@ -60,13 +60,13 @@
                                 <div class="card shadow-sm">
                                     <div class="thumbnail"><img class="bd-placeholder-img" height="225" src="<%=safeData[j].photoIndex%>"/></div>
                                     <div class="card-body">
+                                        <p class="card-text"><%=safeData[j].checkLocation%></p>
                                         <p class="card-text"><%=safeData[j].checkContent%></p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href=`/safeDetail?index=<%=safeData[j].checkIndex%>`">View</button>
                                             </div>
-                                            <small class="text-muted"><%=safeData[j].checkCorrect%></small>
+                                            <small class="text-muted"><%=safeData[j].checkDate%> | <%=safeData[j].checkCorrect%></small>
                                         </div>
                                     </div>
                                 </div>
@@ -81,13 +81,13 @@
                                 <div class="card shadow-sm">
                                     <div class="thumbnail"><img class="bd-placeholder-img" height="225" src="<%=safeData[j+1].photoIndex%>"/></div>
                                     <div class="card-body">
+                                        <p class="card-text"><%=safeData[j].checkLocation%></p>
                                         <p class="card-text"><%=safeData[j+1].checkContent%></p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href=`/safeDetail?index=<%=safeData[j+1].checkIndex%>`">View</button>
                                             </div>
-                                            <small class="text-muted"><%=safeData[j+1].checkCorrect%></small>
+                                            <small class="text-muted"><%=safeData[j+1].checkDate%> | <%=safeData[j+1].checkCorrect%></small>
                                         </div>
                                     </div>
                                 </div>
@@ -101,13 +101,13 @@
                                 <div class="card shadow-sm">
                                     <div class="thumbnail"><img class="bd-placeholder-img" height="225" src="<%=safeData[j+2].photoIndex%>"/></div>
                                     <div class="card-body">
+                                        <p class="card-text"><%=safeData[j].checkLocation%></p>
                                         <p class="card-text"><%=safeData[j+2].checkContent%></p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href=`/safeDetail?index=<%=safeData[j+2].checkIndex%>`">View</button>
                                             </div>
-                                            <small class="text-muted"><%=safeData[j+2].checkCorrect%></small>
+                                            <small class="text-muted"><%=safeData[j+2].checkDate%> | <%=safeData[j+2].checkCorrect%></small>
                                         </div>
                                     </div>
                                 </div>
@@ -119,9 +119,6 @@
                         <h5>점검 내용이 없습니다.</h5>
                     </div>
                 <% } %>
-                
-                
-
 
             </div>
         </div>
